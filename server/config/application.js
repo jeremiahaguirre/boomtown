@@ -4,7 +4,7 @@ const express = require('express');
 const fallback = require('express-history-api-fallback');
 const path = require('path');
 
-module.exports = (app) => {
+module.exports = app => {
   const PORT = process.env.PORT || 8080;
 
   /**
@@ -25,11 +25,6 @@ module.exports = (app) => {
    *  Most server applications will not run unless specific values are part of their environment.
    *  Boomtown requires the following environment variables:
    *
-   *  PORT
-   *  PG_HOST
-   *  PG_USER
-   *  PG_PASSWORD
-   *  PG_DB
    *  JWT_SECRET
    *
    *  And the following non-security related information should also be set for use elsewhere:
@@ -44,6 +39,12 @@ module.exports = (app) => {
    *
    *  For example: app.set('PG_HOST', process.env.PG_HOST || 'localhost')
    */
+
+  app.set('PORT', process.env.PORT || 8080);
+  app.set('PG_HOST', process.env.PG_HOST || 'localhost');
+  app.set('PG_USER', process.env.PG_USER || 'boomtown');
+  app.set('PG_PASSWORD', process.env.PG_PASSWORD || 'boomtown');
+  app.set('PG_DB', process.env.PG_DB || 'boomtown');
 
   app.use(cookieParser());
 
