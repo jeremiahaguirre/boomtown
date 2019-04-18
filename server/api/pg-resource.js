@@ -72,70 +72,65 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: '', // @TODO: Basic queries
-        values: [id]
+        text: 'SELECT * FROM users WHERE id = $1', // @TODO: Basic queries
+        values: id ? [id] : []
       };
 
-      /**
-       *  Refactor the following code using the error handling logic described above.
-       *  When you're done here, ensure all of the resource methods in this file
-       *  include a try catch, and throw appropriate errors.
-       *
-       *  Here is an example throw statement: throw 'User was not found.'
-       *  Customize your throw statements so the message can be used by the client.
-       */
+      try {
+        const user = await postgres.query(findUserQuery);
 
-      const user = await postgres.query(findUserQuery);
-      return user;
-      // -------------------------------
+        return user.rows[0];
+      } catch (err) {
+        throw err;
+      }
     },
     async getItems(idToOmit) {
-      const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *
-         *  Get all Items. If the idToOmit parameter has a value,
-         *  the query should only return Items were the ownerid column
-         *  does not contain the 'idToOmit'
-         *
-         *  Hint: You'll need to use a conditional AND and WHERE clause
-         *  to your query text using string interpolation
-         */
-
-        text: ``,
+      const getItemsQuery = {
+        text: `SELECT * FROM items WHERE items.itemowner !=$1;`,
         values: idToOmit ? [idToOmit] : []
-      });
-      return items.rows;
+      };
+      try {
+        const items = await postgres.query(getItemsQuery);
+        return items.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async getItemsForUser(id) {
-      const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-         */
-        text: ``,
+      const itemowener = {
+        text: `SELECT * FROM items WHERE itemowner = $1`,
         values: [id]
-      });
-      return items.rows;
+      };
+      try {
+        const items = await postgres.query(itemowener);
+        return items.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async getBorrowedItemsForUser(id) {
-      const items = await postgres.query({
-        /**
-         *  @TODO: Advanced queries
-         *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-         */
-        text: ``,
+      const borrowed = {
+        text: `SELECT * FROM items WHERE borrowerid =$1`,
         values: [id]
-      });
-      return items.rows;
+      };
+      try {
+        const items = await postgres.query(borrowed);
+        return items.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async getTags() {
-      const tags = await postgres.query(/* @TODO: Basic queries */);
-      return tags.rows;
+      try {
+        const tags = await postgres.query('SELECT * FROM tags');
+        return tags.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ``, // @TODO: Advanced queries
+        text: ``, // @TODO: Advanced queries Hint: Will need inner join among others
         values: [id]
       };
 
