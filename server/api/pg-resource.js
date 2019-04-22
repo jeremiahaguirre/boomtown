@@ -52,23 +52,10 @@ module.exports = postgres => {
     },
     async getUserById(id) {
       /**
-       *  @TODO: Handling Server Errors
-       *
-       *  Inside of our resource methods we get to determine when and how errors are returned
-       *  to our resolvers using try / catch / throw semantics.
-       *
-       *  Ideally, the errors that we'll throw from our resource should be able to be used by the client
-       *  to display user feedback. This means we'll be catching errors and throwing new ones.
-       *
-       *  Errors thrown from our resource will be captured and returned from our resolvers.
-       *
+       
        *  This will be the basic logic for this resource method:
-       *  1) Query for the user using the given id. If no user is found throw an error.
-       *  2) If there is an error with the query (500) throw an error.
        *  3) If the user is found and there are no errors, return only the id, email, fullname, bio fields.
        *     -- this is important, don't return the password!
-       *
-       *  You'll need to complete the query first before attempting this exercise.
        */
 
       const findUserQuery = {
@@ -110,7 +97,7 @@ module.exports = postgres => {
     },
     async getBorrowedItemsForUser(id) {
       const borrowed = {
-        text: `SELECT * FROM items WHERE borrowerid =$1`,
+        text: `SELECT * FROM items WHERE borrower = $1`,
         values: [id]
       };
       try {
@@ -130,12 +117,16 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ``, // @TODO: Advanced queries Hint: Will need inner join among others
+        text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id=itemtags.tagid WHERE itemtags.itemid= $1`,
         values: [id]
       };
 
-      const tags = await postgres.query(tagsQuery);
-      return tags.rows;
+      try {
+        const tags = await postgres.query(tagsQuery);
+        return tags.rows;
+      } catch (err) {
+        throw err;
+      }
     },
     async saveNewItem({ item, user }) {
       /**
