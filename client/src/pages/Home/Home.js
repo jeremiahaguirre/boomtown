@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AccountForm from '../../components/AccountForm';
 
-
 const Home = ({ classes }) => {
   return (
     <Grid
@@ -25,7 +24,7 @@ const Home = ({ classes }) => {
           Share. Borrow. Prosper.
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={12} md={6}>
+      <Grid item xs={12} sm={12} md= {6}>
         <Typography gutterBottom variant="headline">
           Welcome home.
         </Typography>
