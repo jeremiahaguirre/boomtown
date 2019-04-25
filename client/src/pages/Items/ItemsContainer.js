@@ -16,10 +16,7 @@ class ItemsContainer extends Component {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
           console.log(data);
-          return (
-            <Items classes={this.props.classes} items={data.items} />,
-            <ItemsGrid />
-          );
+          return <Items classes={this.props.classes} items={data.items} />;
         }}
       </Query>
     );

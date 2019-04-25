@@ -1,8 +1,7 @@
 import React from 'react';
 import ItemsGrid from '../../components/ItemsGrid';
 
-
-const Items = ({ classes, items }) => {
+const Items = ({ items }) => {
   return (
     <div>
       <p>

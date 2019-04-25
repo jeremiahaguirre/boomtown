@@ -13,6 +13,13 @@ export default () => (
        * Later, we'll add logic to send users to one set of routes if they're logged in,
        * or only view the /welcome page if they are not.
        */}
+      <Route exact path="/" component={Home} />
+      <Route path="/items" component={Items} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/profile/:userid" component={Profile} />
+      <Route path="/share" component={Share} />
+      <Redirect from="/old" to="/items" />
+      <Route component={NotFound} />
     </Switch>
   </Fragment>
 );
