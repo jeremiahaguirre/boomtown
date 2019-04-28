@@ -23,28 +23,27 @@ const ItemsCards = ({ classes, item }) => {
             />
           </IconButton>
 
-          <Typography className={classes.owner} component="span">
+          <Typography className={classes.owner} component="p">
             {item.itemowner.fullname}
           </Typography>
+          <Typography component="p">{item.created}</Typography>
         </div>
         <div className={classes.textSection}>
           <Typography gutterBottom variant="h5" component="h2">
             {item.title}
           </Typography>
           <Typography className={classes.tag} component="span">
-            {item.tags.map(tag => (
-              <Typography>
-                <span>{tag.title}</span>
-              </Typography>
-            ))}
+            {item.tags.map(tag => tag.title).join(', ')}
           </Typography>
           <Typography className={classes.description} component="p">
             {item.description}
           </Typography>
         </div>
-        <Button className={classes.button} size="large">
-          Borrow
-        </Button>
+        <div className={classes.btn}>
+          <Button className={classes.button} size="large">
+            Borrow
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

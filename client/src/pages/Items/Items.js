@@ -1,9 +1,9 @@
 import React from 'react';
 import ItemsGrid from '../../components/ItemsGrid';
 
-const Items = ({ items }) => {
+const Items = ({classes, items }) => {
   return (
-    <div>
+    <div className={classes.main} >
       <ItemsGrid items={items} />
     </div>
   );

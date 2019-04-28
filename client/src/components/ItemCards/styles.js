@@ -4,7 +4,7 @@ const styles = {
   cards: {
     margin: 10,
     display: 'block',
-    width: '340px'
+    width: '415px'
   },
   infoSection: {
     padding: 10
@@ -24,7 +24,8 @@ const styles = {
   textSection: {
     display: 'block',
     padding: 20,
-    textAlign: 'left'
+    textAlign: 'left',
+    height: '107px'
   },
   tag: {
     color: 'grey',
@@ -37,7 +38,12 @@ const styles = {
   button: {
     backgroundColor: 'grey',
     margin: 10,
-    color: 'black'
+    color: 'black',
+    position: 'relative',
+    top: '10px'
+  },
+  btn:{
+      height:"57px"
   }
 };
 
