@@ -19,6 +19,10 @@ const styles = {
     width: '100%'
   },
   owner: {
+    fontSize: '18px'
+  },
+  ownerDate: {
+    display: 'block',
     paddingLeft: '30px'
   },
   textSection: {
@@ -36,14 +40,14 @@ const styles = {
   },
 
   button: {
-    backgroundColor: 'grey',
+    backgroundColor: 'lightgrey',
     margin: 10,
     color: 'black',
     position: 'relative',
     top: '10px'
   },
-  btn:{
-      height:"57px"
+  btn: {
+    height: '57px'
   }
 };
 

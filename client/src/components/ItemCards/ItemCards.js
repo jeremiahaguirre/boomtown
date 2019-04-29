@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-
+const moment = require('moment');
 const ItemsCards = ({ classes, item }) => {
   return (
     <Card className={classes.cards}>
@@ -22,11 +22,16 @@ const ItemsCards = ({ classes, item }) => {
               email="happytobike@gmail.com"
             />
           </IconButton>
-
-          <Typography className={classes.owner} component="p">
-            {item.itemowner.fullname}
-          </Typography>
-          <Typography component="p">{item.created}</Typography>
+          <div className={classes.ownerDate}>
+            <Typography className={classes.owner} component="p">
+              {item.itemowner.fullname}
+            </Typography>
+            <Typography component="p">
+              {moment(item.created)
+                .startOf('day')
+                .fromNow()}
+            </Typography>
+          </div>
         </div>
         <div className={classes.textSection}>
           <Typography gutterBottom variant="h5" component="h2">
