@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,29 +10,28 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Gravatar from 'react-gravatar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core';
+import styles from './styles';
 
-// import './SimpleForm.css';
-
-function InputField({ value, placeholder, onChange, meta }) {
+function InputFieldNoStyle({ classes, value, placeholder, onChange, meta }) {
   return (
     <div className="line">
-      <div>
-        <TextField
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-      </div>
+      <TextField
+        className={classes.space}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 }
+const InputField = withStyles(styles)(InputFieldNoStyle);
 
-export const FormConfig = {
+const FormConfig = {
   placeholder: {
     name: 'Name your item',
     description: 'Describe your item',
@@ -41,10 +39,13 @@ export const FormConfig = {
   }
 };
 
-export function FormView({ classes, handleSubmit, tags }) {
+function FormViewNoStyle({ classes, handleSubmit, tags }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <button className="line" type="submit">
+    <form className={classes.form} onSubmit={handleSubmit}>
+      <Typography className={classes.formHeader} component="h2">
+        Share. Borrow. Prosper.
+      </Typography>
+      <button className={classes.select} type="submit">
         Select an image
       </button>
       <Field
@@ -69,7 +70,7 @@ export function FormView({ classes, handleSubmit, tags }) {
           />
         )}
       />
-      <FormControl>
+      <FormControl className={classes.tags}>
         <InputLabel htmlFor="select-multiple-checkbox">
           Add some tags
         </InputLabel>
@@ -89,55 +90,56 @@ export function FormView({ classes, handleSubmit, tags }) {
         </Select>
       </FormControl>
 
-      <button className="line" type="submit">
-        Enter
+      <button className={classes.btn} type="submit">
+        Share
       </button>
     </form>
   );
 }
+const FormView = withStyles(styles)(FormViewNoStyle);
+const CardNoStyle = ({ classes, item }) => {
+  return (
+    <Card className={classes.cards}>
+      <CardMedia
+        component="img"
+        height="240"
+        image="https://loremflickr.com/320/240"
+      />
+      <CardContent>
+        <div>
+          <IconButton>
+            <Gravatar email="happytobike@gmail.com" />
+          </IconButton>
+          <div>
+            <Typography component="span">some text</Typography>
+          </div>
+        </div>
+        <div>
+          <Typography gutterBottom variant="h5" component="h2">
+            some text
+          </Typography>
+          <Typography variant="h5" component="p">
+            some text
+          </Typography>
+          <Typography variant="h5" component="p">
+            some text
+          </Typography>
+        </div>
+        <Button size="large">Borrow</Button>
+      </CardContent>
+    </Card>
+  );
+};
 
-class ShareForm extends Component {
-  render() {
-    return (
-      <div>
-        <Card />
-        <Form
-          render={props => <FormView {...props} tags={this.props.tags} />}
-        />
-      </div>
-    );
-  }
-}
+const Cards = withStyles(styles)(CardNoStyle);
 
-// const Cards = ({ classes, item }) => {
-//   <Card className={classes.cards}>
-//     <CardContent className={classes.infoSection}>
-//       <div className={classes.header}>
-//         <IconButton>
-//           <Gravatar
-//             className={classes.profilePic}
-//             email="happytobike@gmail.com"
-//           />
-//         </IconButton>
-//         <div className={classes.ownerDate}>
-//           <Typography className={classes.owner} component="p">
-//             {item.itemowner.fullname}
-//           </Typography>
-//         </div>
-//       </div>
-//       <div className={classes.textSection}>
-//         <Typography gutterBottom variant="h5" component="h2">
-//           some text
-//         </Typography>
-//         <Typography className={classes.tag} component="span">
-//           some text
-//         </Typography>
-//         <Typography className={classes.description} component="p">
-//           some text
-//         </Typography>
-//       </div>
-//     </CardContent>
-//   </Card>;
-// };
+const ShareForm = ({ classes, items }) => {
+  return (
+    <div className={classes.share}>
+      <Cards />
+      <Form render={props => <FormView {...props} tags={props.tags} />} />
+    </div>
+  );
+};
 
-export default ShareForm;
+export default withStyles(styles)(ShareForm);
