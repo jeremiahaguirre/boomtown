@@ -1,10 +1,5 @@
 const styles = {
-  share: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '80%',
-    margin: 'auto'
-  },
+ 
   cards: {
     margin: 10,
     display: 'block',

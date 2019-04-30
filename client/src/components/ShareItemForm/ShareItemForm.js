@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import { Form, Field } from 'react-final-form';
+import { Form, Field, FormSpy } from 'react-final-form';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import Gravatar from 'react-gravatar';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
+import {
+  updateItem,
+  resetItem,
+  resetImage
+} from '../../redux/shareItemPreview/reducer';
+import { connect } from 'react-redux';
 
-function InputFieldNoStyle({ classes, value, placeholder, onChange, meta }) {
+const InputFieldNoStyle = ({
+  classes,
+  value,
+  placeholder,
+  fileInput,
+  handleSelectFile,
+  onChange
+}) => {
   return (
     <div className="line">
       <TextField
@@ -25,37 +31,60 @@ function InputFieldNoStyle({ classes, value, placeholder, onChange, meta }) {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        ref={fileInput}
       />
     </div>
   );
-}
+};
 const InputField = withStyles(styles)(InputFieldNoStyle);
 
 const FormConfig = {
   placeholder: {
-    name: 'Name your item',
+    title: 'Name your item',
     description: 'Describe your item',
     tags: 'Add some tags'
   }
 };
 
-function FormViewNoStyle({ classes, handleSubmit, tags }) {
+const FormViewNoStyle = ({
+  classes,
+  handleSubmit,
+  tags,
+  dispatchUpdate,
+  updateItem,
+  selectedTags,
+  handleSelectTag,
+  generateTagsText,
+  pristine,
+  invalid,
+  form
+}) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
+      <FormSpy
+        subscription={{ values: true }}
+        component={({ values }) => {
+          if (values) {
+            console.log('form spy', values);
+            dispatchUpdate(values, tags, updateItem);
+          }
+          return '';
+        }}
+      />
       <Typography className={classes.formHeader} component="h2">
         Share. Borrow. Prosper.
       </Typography>
-      <button className={classes.select} type="submit">
+      <Button className={classes.select} type="submit">
         Select an image
-      </button>
+      </Button>
       <Field
-        name="name"
+        name="title"
         render={({ input, meta }) => (
           <InputField
             placeholder={FormConfig.placeholder[input.name]}
             onChange={input.onChange}
             meta={meta}
-            value={input.value}
+            {...input}
           />
         )}
       />
@@ -65,81 +94,153 @@ function FormViewNoStyle({ classes, handleSubmit, tags }) {
         render={({ input, meta }) => (
           <InputField
             placeholder={FormConfig.placeholder[input.name]}
+            onChange={input.onChange}
             meta={meta}
             {...input}
           />
         )}
       />
-      <FormControl className={classes.tags}>
-        <InputLabel htmlFor="select-multiple-checkbox">
-          Add some tags
-        </InputLabel>
-        <Select
-          name="tags"
-          render={({ input, meta }) => (
-            <InputField placeholder={FormConfig.placeholder[input.name]} />
-          )}
-        >
-          {tags &&
-            tags.map(tag => (
-              <MenuItem key={tag} value={tag.title}>
-                <Checkbox checked={tag} />
-                <ListItemText primary={tags} />
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-
-      <button className={classes.btn} type="submit">
+      <Field name="tags">
+        {({ input, meta }) => {
+          return (
+            <Select
+              multiple
+              value={selectedTags}
+              onChange={handleSelectTag}
+              renderValue={selected => {
+                return generateTagsText(tags, selected);
+              }}
+            >
+              {tags &&
+                tags.map(tag => (
+                  <MenuItem key={tag.id} value={tag.id}>
+                    <Checkbox checked={selectedTags.indexOf(tag.id) > -1} />
+                    <ListItemText primary={tag.title} />
+                    {console.log(tag.title)}
+                  </MenuItem>
+                ))}
+            </Select>
+          );
+        }}
+      </Field>
+      <Button className={classes.btn} type="submit">
         Share
-      </button>
+      </Button>
     </form>
   );
-}
+};
+
 const FormView = withStyles(styles)(FormViewNoStyle);
-const CardNoStyle = ({ classes, item }) => {
-  return (
-    <Card className={classes.cards}>
-      <CardMedia
-        component="img"
-        height="240"
-        image="https://loremflickr.com/320/240"
-      />
-      <CardContent>
-        <div>
-          <IconButton>
-            <Gravatar email="happytobike@gmail.com" />
-          </IconButton>
-          <div>
-            <Typography component="span">some text</Typography>
-          </div>
-        </div>
-        <div>
-          <Typography gutterBottom variant="h5" component="h2">
-            some text
-          </Typography>
-          <Typography variant="h5" component="p">
-            some text
-          </Typography>
-          <Typography variant="h5" component="p">
-            some text
-          </Typography>
-        </div>
-        <Button size="large">Borrow</Button>
-      </CardContent>
-    </Card>
-  );
-};
 
-const Cards = withStyles(styles)(CardNoStyle);
+class ShareForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fileSelected: false,
+      done: false,
+      selectedTags: []
+    };
+    this.fileInput = React.createRef();
+  }
+  generateTagsText(tags, selected) {
+    return tags
+      .map(t => (selected.indexOf(t.id) > -1 ? t.title : false))
+      .filter(e => e)
+      .join(', ');
+  }
+  handleSelectTag = event => {
+    this.setState({
+      selectedTags: event.target.value
+    });
+  };
+  handleSelectFile = event => {
+    this.setState({
+      fileSelected: this.fileInput.current.files[0]
+    });
+  };
+  applyTags(tags) {
+    return (
+      tags &&
+      tags
+        .filter(t => this.state.selectedTags.indexOf(t.id) > -1)
+        .map(t => ({ title: t.title, id: t.id }))
+    );
+  }
+  getBase64Url() {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        resolve(
+          `data:${this.state.fileSelected.type};base64, ${btoa(
+            e.target.result
+          )}`
+        );
+      };
+      reader.readAsBinaryString(this.state.fileSelected);
+    });
+  }
+  resetFileInput = () => {
+    this.fileInput.current.value = '';
+    this.props.resetImage();
+    this.setState({
+      fileSelected: false
+    });
+  };
+  dispatchUpdate = (values, tags, updateNewItem) => {
+    console.log(values);
+    if (!values.imageurl && this.state.fileSelected) {
+      this.getBase64Url().then(imageurl => {
+        updateNewItem({
+          imageurl
+        });
+      });
+    }
+    updateNewItem({
+      ...values,
+      tags: this.applyTags(tags)
+    });
+  };
 
-const ShareForm = ({ classes, items }) => {
-  return (
-    <div className={classes.share}>
-      <Cards />
-      <Form render={props => <FormView {...props} tags={props.tags} />} />
-    </div>
-  );
-};
+  render() {
+    const { tags } = this.props;
+    return (
+      <div className={this.props.classes.share}>
+        <Form
+          onSubmit={values => {
+            this.saveItem(values);
+          }}
+          render={props => (
+            <FormView
+              {...props}
+              fileInput={this.fileInput}
+              tags={tags}
+              generateTagsText={this.generateTagsText}
+              handleSelectTag={this.handleSelectTag}
+              selectedTags={this.state.selectedTags}
+              updateItem={this.props.updateItem}
+              handleSelectFile={this.handleSelectFile}
+              dispatchUpdate={this.dispatchUpdate}
+            />
+          )}
+        />
+      </div>
+    );
+  }
+}
 
-export default withStyles(styles)(ShareForm);
+const mapDispatchToProps = dispatch => ({
+  updateItem(item) {
+    dispatch(updateItem(item));
+  },
+  resetImage() {
+    dispatch(resetImage());
+  },
+  resetItem() {
+    dispatch(resetItem());
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(ShareForm));

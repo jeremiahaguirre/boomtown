@@ -12,11 +12,12 @@ import ShareItemForm from '../../components/ShareItemForm';
 
 */
 // import ShareItemForm from '../../components/ShareItemForm';
-// import ShareItemPreview from '../../components/ShareItemPreview';
+import ShareItemPreview from '../../components/ShareItemPreview';
 
 const Share = ({ classes, tags }) => {
   return (
-    <div>
+    <div className={classes.share}>
+      <ShareItemPreview />
       <ShareItemForm tags={tags} />
     </div>
   );
