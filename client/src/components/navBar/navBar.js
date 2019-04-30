@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddIcon from '@material-ui/icons/Add';
 
 // import MenuIcon from '@material-ui/icons/Menu';
 
@@ -25,7 +26,10 @@ const navBar = ({ classes, props }) => {
           </div>
 
           <div className={classes.login}>
-            <Button>Share Somthing</Button>
+            <Button>
+              {' '}
+              <AddIcon />Share Somthing
+            </Button>
             <Button>
               <MoreVertIcon />
             </Button>

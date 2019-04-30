@@ -46,7 +46,7 @@ module.exports = app => {
       async user(parent, { id }, { pgResource }, info) {
         try {
           const user = await pgResource.getUserById(id);
-          if (user == null) {
+          if (user === null) {
             throw 'Wrong User';
           } else {
             return user;

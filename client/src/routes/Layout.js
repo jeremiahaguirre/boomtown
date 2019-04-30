@@ -10,7 +10,7 @@ export default ({ classes, props }) => (
   <Fragment>
     <NavBar />
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/home" component={Home} />
       <Route path="/items" component={Items} />
       <Route path="/profile" component={Profile} />
       <Route path="/profile/:userid" component={Profile} />

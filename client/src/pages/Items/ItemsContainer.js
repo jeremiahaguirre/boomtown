@@ -6,7 +6,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 // import FullScreenLoader from '../../components/FullScreenLoader';
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
-import ItemsGrid from '../../components/ItemsGrid/index';
 
 class ItemsContainer extends Component {
   render() {
