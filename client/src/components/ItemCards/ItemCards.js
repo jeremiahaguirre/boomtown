@@ -35,7 +35,7 @@ const ItemsCards = ({ classes, item }) => {
           </div>
         </div>
         <div className={classes.textSection}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom component="h2">
             {item.title}
           </Typography>
           <Typography className={classes.tag} component="span">

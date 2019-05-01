@@ -20,7 +20,6 @@ const InputFieldNoStyle = ({
   classes,
   value,
   placeholder,
-  fileInput,
   handleSelectFile,
   onChange
 }) => {
@@ -31,7 +30,6 @@ const InputFieldNoStyle = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        ref={fileInput}
       />
     </div>
   );
@@ -55,6 +53,8 @@ const FormViewNoStyle = ({
   selectedTags,
   handleSelectTag,
   generateTagsText,
+  handleSelectFile,
+  fileInput,
   pristine,
   invalid,
   form
@@ -65,7 +65,6 @@ const FormViewNoStyle = ({
         subscription={{ values: true }}
         component={({ values }) => {
           if (values) {
-            console.log('form spy', values);
             dispatchUpdate(values, tags, updateItem);
           }
           return '';
@@ -74,9 +73,30 @@ const FormViewNoStyle = ({
       <Typography className={classes.formHeader} component="h2">
         Share. Borrow. Prosper.
       </Typography>
-      <Button className={classes.select} type="submit">
-        Select an image
-      </Button>
+      <Field
+        name="imageurl"
+        render={({ input, meta }) => (
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInput}
+              id="fileinput"
+              hidden
+              onClick={e => handleSelectFile(e)}
+            />
+            <Button
+              onClick={() => {
+                fileInput.current.click();
+              }}
+              className={classes.select}
+            >
+              Select an image
+            </Button>
+          </div>
+        )}
+      />
+
       <Field
         name="title"
         render={({ input, meta }) => (
@@ -116,7 +136,6 @@ const FormViewNoStyle = ({
                   <MenuItem key={tag.id} value={tag.id}>
                     <Checkbox checked={selectedTags.indexOf(tag.id) > -1} />
                     <ListItemText primary={tag.title} />
-                    {console.log(tag.title)}
                   </MenuItem>
                 ))}
             </Select>
@@ -187,7 +206,6 @@ class ShareForm extends Component {
     });
   };
   dispatchUpdate = (values, tags, updateNewItem) => {
-    console.log(values);
     if (!values.imageurl && this.state.fileSelected) {
       this.getBase64Url().then(imageurl => {
         updateNewItem({

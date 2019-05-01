@@ -56,7 +56,7 @@ module.exports = gql`
   input NewItemInput {
     title: String!
     description: String
-    tags: [AssignedTag]!
+    tags: [AssignedTag]
   }
 
   type Query {
@@ -67,6 +67,6 @@ module.exports = gql`
   }
 
   type Mutation {
-    addItem: Boolean
+    addItem(item: NewItemInput!): Item
   }
 `;
