@@ -2,6 +2,10 @@
 
 # Boomtown 🏙
 
+### ScreenShot
+
+![alt text](/screenshot.png)
+
 ## Server Instruction
 
 Commands must be run from the `server` directory:
