@@ -20,7 +20,8 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: '', // @TODO: Authentication - Server
+        text:
+          'INSERT INTO users (fullname, email, password) VALUES ($1, $2, $3)RETURNING *',
         values: [fullname, email, password]
       };
       try {
@@ -39,7 +40,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: '', // @TODO: Authentication - Server
+        text: 'SELECT * FROM users WHERE email = $1',
         values: [email]
       };
       try {
@@ -51,15 +52,8 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      /**
-       
-       *  This will be the basic logic for this resource method:
-       *  3) If the user is found and there are no errors, return only the id, email, fullname, bio fields.
-       *     -- this is important, don't return the password!
-       */
-
       const findUserQuery = {
-        text: 'SELECT * FROM users WHERE id = $1', // @TODO: Basic queries
+        text: 'SELECT * FROM users WHERE id = $1',
         values: id ? [id] : []
       };
 
@@ -135,13 +129,13 @@ module.exports = postgres => {
             client.query('BEGIN', async err => {
               const { title, description, tags } = item;
               const itemQuery = {
-                text: `INSERT INTO items(title, description, ownerid) VALUES ($1, $2, $3) RETURNING *`,
+                text: `INSERT INTO items(title, description, itemowner) VALUES ($1, $2, $3) RETURNING *`,
                 values: [title, description, user.id]
               };
 
               const newItem = await postgres.query(itemQuery);
               const tagsWithItems = {
-                text: `INSERT INTO itemtags(itemid, tagid) VALUES ${tagsQueryString(
+                text: `INSERT INTO itemtags(tagid, itemid) VALUES ${tagsQueryString(
                   [...tags],
                   newItem.rows[0].id,
                   ''
@@ -153,7 +147,7 @@ module.exports = postgres => {
                 if (err) {
                   throw err;
                 }
-                
+
                 done();
                 resolve(newItem.rows[0]);
               });
