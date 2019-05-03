@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
 import client from './apollo';
 import Layout from './routes/Layout';
+import { ViewerProvider } from './context/ViewerProvider';
 
 /**
  * @TODO: Initialize Apollo Client
@@ -40,9 +41,11 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <ApolloProvider client={client}>
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
+          <ViewerProvider>
+            <BrowserRouter>
+              <Layout />
+            </BrowserRouter>
+          </ViewerProvider>
         </ApolloProvider>
       </MuiThemeProvider>
     </ReduxProvider>
