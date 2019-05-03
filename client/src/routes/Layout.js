@@ -5,17 +5,33 @@ import Items from '../pages/Items';
 import Profile from '../pages/Profile';
 import Share from '../pages/Share';
 import NavBar from '../components/navBar';
+import { ViewerContext } from '../context/ViewerProvider';
 
 export default ({ classes, props }) => (
-  <Fragment>
-    <NavBar />
-    <Switch>
-      <Route exact path="/home" component={Home} />
-      <Route path="/items" component={Items} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/profile/:userid" component={Profile} />
-      <Route path="/share" component={Share} />
-      <Redirect from="/:?" to="/items" />
-    </Switch>
-  </Fragment>
+  <ViewerContext.Consumer>
+    {({ viewer, loading }) => {
+      if (loading) return null;
+      if (!viewer) {
+        return (
+          <Switch>
+            <Route exact path="/welcome" component={Home} />
+            <Redirect from="/*" to="/welcome" />
+          </Switch>
+        );
+      } else {
+        return (
+          <Fragment>
+            <NavBar />
+            <Switch>
+              <Route path="/items" component={Items} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/profile/:userid" component={Profile} />
+              <Route path="/share" component={Share} />
+              <Redirect from="/*" to="/items" />
+            </Switch>
+          </Fragment>
+        );
+      }
+    }}
+  </ViewerContext.Consumer>
 );
