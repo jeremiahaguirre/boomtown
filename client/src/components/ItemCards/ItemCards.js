@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 const moment = require('moment');
 
-const ItemsCards = ({ classes, item }) => {
+const ItemsCards = ({ classes, item, viewer }) => {
   return (
     <Card className={classes.cards}>
       <CardMedia component="img" height="240" image={item.imageurl} />
@@ -20,12 +20,12 @@ const ItemsCards = ({ classes, item }) => {
           <IconButton>
             <Gravatar
               className={classes.profilePic}
-              email="happytobike@gmail.com"
+              email={item.itemowner.email || viewer.email}
             />
           </IconButton>
           <div className={classes.ownerDate}>
             <Typography className={classes.owner} component="p">
-              {item.itemowner.fullname}
+              {item.itemowner.fullname || viewer.fullname}
             </Typography>
             <Typography component="p">
               {moment(item.created)
