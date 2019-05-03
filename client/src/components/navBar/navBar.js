@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
+import LogoutMenu from '../LogoutMenu';
 
 // import MenuIcon from '@material-ui/icons/Menu';
 
@@ -26,12 +27,13 @@ const navBar = ({ classes, props }) => {
           </div>
 
           <div className={classes.login}>
+            <Link to="/share">
+              <Button>
+                <AddIcon />Share Somthing
+              </Button>
+            </Link>
             <Button>
-              {' '}
-              <AddIcon />Share Somthing
-            </Button>
-            <Button>
-              <MoreVertIcon />
+              <LogoutMenu />
             </Button>
           </div>
         </Toolbar>
