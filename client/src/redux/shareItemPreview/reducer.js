@@ -1,4 +1,5 @@
 //Actions
+import { ViewerContext } from '../../context/ViewerProvider';
 const UPDATE_ITEM = 'UPDATE_ITEM';
 const RESET_IMAGE = 'RESET_IMAGE';
 const RESET_ITEM = 'RESET_ITEM';
@@ -18,6 +19,7 @@ export const resetItem = () => ({
 });
 
 //Initial State
+
 const initialState = {
   title: 'Name your item',
   description: 'Describe your item',
@@ -28,6 +30,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case UPDATE_ITEM:
       return {

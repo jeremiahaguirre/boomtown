@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
+import { Mutation } from 'react-apollo';
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import {
   updateItem,
   resetItem,
@@ -54,6 +56,8 @@ const FormViewNoStyle = ({
   handleSelectTag,
   generateTagsText,
   handleSelectFile,
+  resetFileInput,
+  fileSelected,
   fileInput,
   pristine,
   invalid,
@@ -83,16 +87,27 @@ const FormViewNoStyle = ({
               ref={fileInput}
               id="fileinput"
               hidden
-              onClick={e => handleSelectFile(e)}
+              onChange={e => handleSelectFile(e)}
             />
-            <Button
-              onClick={() => {
-                fileInput.current.click();
-              }}
-              className={classes.select}
-            >
-              Select an image
-            </Button>
+            {fileSelected ? (
+              <Button
+                onClick={() => {
+                  resetFileInput();
+                }}
+                className={classes.select}
+              >
+                Reset Image
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+                className={classes.select}
+              >
+                Select an image
+              </Button>
+            )}
           </div>
         )}
       />
@@ -142,7 +157,11 @@ const FormViewNoStyle = ({
           );
         }}
       </Field>
-      <Button className={classes.btn} type="submit">
+      <Button
+        className={classes.btn}
+        type="submit"
+        disabled={pristine || invalid}
+      >
         Share
       </Button>
     </form>
@@ -223,24 +242,32 @@ class ShareForm extends Component {
     const { tags } = this.props;
     return (
       <div className={this.props.classes.share}>
-        <Form
-          onSubmit={values => {
-            this.saveItem(values);
-          }}
-          render={props => (
-            <FormView
-              {...props}
-              fileInput={this.fileInput}
-              tags={tags}
-              generateTagsText={this.generateTagsText}
-              handleSelectTag={this.handleSelectTag}
-              selectedTags={this.state.selectedTags}
-              updateItem={this.props.updateItem}
-              handleSelectFile={this.handleSelectFile}
-              dispatchUpdate={this.dispatchUpdate}
+        <Mutation mutation={ADD_ITEM_MUTATION}>
+          {(addTodo, { data }) => (
+            <Form
+              onSubmit={values => {
+                addTodo({
+                  variables: { item: { ...values }, tags: this.applyTags }
+                });
+              }}
+              render={props => (
+                <FormView
+                  {...props}
+                  fileInput={this.fileInput}
+                  tags={tags}
+                  fileSelected={this.state.fileSelected}
+                  resetFileInput={this.resetFileInput}
+                  generateTagsText={this.generateTagsText}
+                  handleSelectTag={this.handleSelectTag}
+                  selectedTags={this.state.selectedTags}
+                  updateItem={this.props.updateItem}
+                  handleSelectFile={this.handleSelectFile}
+                  dispatchUpdate={this.dispatchUpdate}
+                />
+              )}
             />
           )}
-        />
+        </Mutation>
       </div>
     );
   }
