@@ -1,10 +1,12 @@
-[![React Docs](https://badge.fury.io/rb/github_changelog_generator.svg)](https://reactjs.org/)
+[![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/IgorAntun/node-chat/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/IgorAntun/node-chat.svg)](https://github.com/IgorAntun/node-chat/issues)
 
 # Boomtown 🏙
 
 ### ScreenShot
 
 ![alt text](/screenshot.png)
+
+---
 
 ## Server Instruction
 
@@ -66,6 +68,8 @@ npm run test
 - Postgres
 - GraphQL
 
+---
+
 ## Client Insruction
 
 Commands must be run from the `client` directory:
@@ -119,6 +123,8 @@ npm run test
 - Material-UI
 - Apollo
 - React Router
+
+---
 
 ## Author
 
