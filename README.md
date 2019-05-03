@@ -133,6 +133,6 @@ npm run test
 
 - **Nothing is impossible!**
 
-- Open an [issue](https://github.com/jeremiahaguirre/boomtown/issues/new) and let's make the generator better together!
+- Open an [issue](https://github.com/jeremiahaguirre/boomtown/issues/new) and let's make Boomtown better together!
 
 - _Bug reports, feature requests, patches, and well-wishes are always welcome._ :heavy_exclamation_mark:
