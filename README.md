@@ -1,5 +1,3 @@
-[![GitHub Issues](https://img.shields.io/github/issues/IgorAntun/node-chat.svg)](https://github.com/jeremiahaguirre/boomtown/issues)
-
 # Boomtown 🏙
 
 ### ScreenShot
