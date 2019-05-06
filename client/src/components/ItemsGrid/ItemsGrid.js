@@ -7,8 +7,8 @@ import { withStyles } from '@material-ui/core';
 const ItemsGrid = ({ classes, items }) => {
   return (
     <div className={classes.mainGrid}>
-      <Grid container alignContent="center">
-        <Grid item xs={12}>
+      <Grid container alignContent="center" key={items.id}>
+        <Grid item xs={12} key={items.id}>
           <Grid container>
             {items.map(item => <ItemCards key={item.index} item={item} />)}
           </Grid>

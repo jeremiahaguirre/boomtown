@@ -2,7 +2,6 @@ import React from 'react';
 import Gravatar from 'react-gravatar';
 import styles from './styles';
 import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +34,7 @@ const ItemsCards = ({ classes, item, viewer }) => {
           </div>
         </div>
         <div className={classes.textSection}>
-          <Typography gutterBottom component="h2">
+          <Typography className={classes.itemTitle} gutterBottom component="h2">
             {item.title}
           </Typography>
           <Typography className={classes.tag} component="span">

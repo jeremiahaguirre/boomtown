@@ -6,6 +6,7 @@ import styles from './styles';
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 import { ViewerContext } from '../../context/ViewerProvider';
+import Loader from '../../components/Loader';
 
 class ItemsContainer extends Component {
   render() {
@@ -15,7 +16,7 @@ class ItemsContainer extends Component {
           return (
             <Query query={ALL_ITEMS_QUERY} variables={{ filter: viewer.id }}>
               {({ loading, error, data }) => {
-                if (loading) return 'Loading...';
+                if (loading) return <Loader />;
                 if (error) return `Error! ${error.message}`;
                 return (
                   <Items classes={this.props.classes} items={data.items} />

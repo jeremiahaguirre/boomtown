@@ -1,5 +1,3 @@
-
-
 const styles = {
   cards: {
     margin: 10,
@@ -48,6 +46,9 @@ const styles = {
   },
   btn: {
     height: '57px'
+  },
+  itemTitle: {
+    fontSize: '28px'
   }
 };
 

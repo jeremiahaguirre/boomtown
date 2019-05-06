@@ -1,18 +1,39 @@
-
 import React, { Component } from 'react';
 import Profile from './Profile';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-// import FullScreenLoader from '../../components/FullScreenLoader';
-// import { Query } from 'react-apollo';
-// import {  } from '../../apollo/queries';
+import { ViewerContext } from '../../context/ViewerProvider';
+import { Query } from 'react-apollo';
+import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
+import Loader from '../../components/Loader';
 
 class ProfileContainer extends Component {
-    render() {
-      return (
-        <Profile />
-      );
-    }
+  render() {
+    return (
+      <div className={this.props.classes.main}>
+        <ViewerContext.Consumer>
+          {({ viewer, loading }) => {
+            return (
+              <Query query={ALL_USER_ITEMS_QUERY} variables={{ id: viewer.id }}>
+                {({ loading, error, data }) => {
+                  console.log(data);
+                  if (loading) return <Loader />;
+                  if (error) return `Error! ${error.message}`;
+                  return (
+                    <Profile
+                      classes={this.props.classes}
+                      user={viewer}
+                      userItems={data.user.items}
+                    />
+                  );
+                }}
+              </Query>
+            );
+          }}
+        </ViewerContext.Consumer>
+      </div>
+    );
   }
-  
-  export default withStyles(styles)(ProfileContainer);
+}
+
+export default withStyles(styles)(ProfileContainer);

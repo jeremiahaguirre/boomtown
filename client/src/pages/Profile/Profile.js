@@ -1,11 +1,13 @@
 import React from 'react';
+import ProfileCard from '../../components/ProfileCard/';
+import ItemsGrid from '../../components/ItemsGrid';
 
-const Profile = ({ classes }) => {
+const Profile = ({ classes, user, userItems }) => {
+  console.log(userItems.length);
   return (
     <div>
-      <p>
-        This is the profile page located at <code>/profile/:userId</code>.
-      </p>
+      <ProfileCard key={user.index} user={user} userItems={userItems} />
+      <ItemsGrid key={user.index} items={userItems} />
     </div>
   );
 };

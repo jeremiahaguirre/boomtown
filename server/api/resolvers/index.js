@@ -94,6 +94,7 @@ module.exports = app => {
       ...authMutations,
 
       async addItem(parent, { item }, context, info) {
+        console.log('item server', item);
         const user = context.token.id;
         try {
           const newItem = await context.pgResource.saveNewItem({

@@ -21,9 +21,11 @@ const navBar = ({ classes, props }) => {
       <AppBar position="static">
         <Toolbar className={classes.navBar}>
           <div className={classes.logoBtn}>
-            <IconButton color="inherit" aria-label="Menu">
-              <img className={classes.logo} src={logo} />
-            </IconButton>
+            <Link to="/items">
+              <IconButton color="inherit" aria-label="Menu">
+                <img className={classes.logo} src={logo} />
+              </IconButton>
+            </Link>
           </div>
 
           <div className={classes.login}>

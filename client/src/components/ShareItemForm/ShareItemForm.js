@@ -10,13 +10,14 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
 import { Mutation } from 'react-apollo';
-import { ADD_ITEM_MUTATION } from '../../apollo/queries';
+import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../../apollo/queries';
 import {
   updateItem,
   resetItem,
   resetImage
 } from '../../redux/shareItemPreview/reducer';
 import { connect } from 'react-redux';
+import { ViewerContext } from '../../context/ViewerProvider';
 
 const InputFieldNoStyle = ({
   classes,
@@ -242,32 +243,54 @@ class ShareForm extends Component {
     const { tags } = this.props;
     return (
       <div className={this.props.classes.share}>
-        <Mutation mutation={ADD_ITEM_MUTATION}>
-          {(addTodo, { data }) => (
-            <Form
-              onSubmit={values => {
-                addTodo({
-                  variables: { item: { ...values }, tags: this.applyTags }
-                });
-              }}
-              render={props => (
-                <FormView
-                  {...props}
-                  fileInput={this.fileInput}
-                  tags={tags}
-                  fileSelected={this.state.fileSelected}
-                  resetFileInput={this.resetFileInput}
-                  generateTagsText={this.generateTagsText}
-                  handleSelectTag={this.handleSelectTag}
-                  selectedTags={this.state.selectedTags}
-                  updateItem={this.props.updateItem}
-                  handleSelectFile={this.handleSelectFile}
-                  dispatchUpdate={this.dispatchUpdate}
-                />
-              )}
-            />
-          )}
-        </Mutation>
+        <ViewerContext.Consumer>
+          {({ loading, viewer }) => {
+            return (
+              <Mutation
+                refetchQueries={() => [
+                  { query: ALL_ITEMS_QUERY, variables: viewer.id }
+                ]}
+                mutation={ADD_ITEM_MUTATION}
+              >
+                {(addItem, { data }) => (
+                  <Form
+                    onSubmit={async values => {
+                      try {
+                        const newItem = {
+                          item: {
+                            ...values,
+                            tags: this.applyTags(tags)
+                          }
+                        };
+                        await addItem({
+                          variables: newItem
+                        });
+                      } catch (e) {
+                        console.log(e);
+                      }
+                      // this.props.history.push('./items');
+                    }}
+                    render={props => (
+                      <FormView
+                        {...props}
+                        fileInput={this.fileInput}
+                        tags={tags}
+                        fileSelected={this.state.fileSelected}
+                        resetFileInput={this.resetFileInput}
+                        generateTagsText={this.generateTagsText}
+                        handleSelectTag={this.handleSelectTag}
+                        selectedTags={this.state.selectedTags}
+                        updateItem={this.props.updateItem}
+                        handleSelectFile={this.handleSelectFile}
+                        dispatchUpdate={this.dispatchUpdate}
+                      />
+                    )}
+                  />
+                )}
+              </Mutation>
+            );
+          }}
+        </ViewerContext.Consumer>
       </div>
     );
   }
