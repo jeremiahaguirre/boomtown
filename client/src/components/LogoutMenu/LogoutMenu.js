@@ -7,6 +7,8 @@ import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import { Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
 
 const ITEM_HEIGHT = 48;
 
@@ -26,7 +28,7 @@ class LogoutMenu extends Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const { logoutMutation } = this.props;
+    const { logoutMutation, classes } = this.props;
 
     return (
       <div>
@@ -39,6 +41,7 @@ class LogoutMenu extends Component {
           <MoreVertIcon />
         </IconButton>
         <Menu
+          className={classes.main}
           id="long-menu"
           anchorEl={anchorEl}
           open={open}
@@ -81,4 +84,4 @@ export default compose(
     },
     name: 'logoutMutation'
   })
-)(LogoutMenu);
+)(withStyles(styles)(LogoutMenu));

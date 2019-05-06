@@ -1,7 +1,6 @@
 const styles = {
   main: {
-    backgroundColor: '#212121',
-    height: '100%'
+    backgroundColor: '#212121'
   }
 };
 

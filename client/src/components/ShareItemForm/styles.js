@@ -1,5 +1,4 @@
 const styles = {
- 
   cards: {
     margin: 10,
     display: 'block',
