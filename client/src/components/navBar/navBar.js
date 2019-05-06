@@ -17,7 +17,7 @@ import logo from '../../images/boomtown.svg';
 
 const navBar = ({ classes, props }) => {
   return (
-    <div>
+    <div className={classes.navBar}>
       <AppBar position="static">
         <Toolbar className={classes.navBar}>
           <div className={classes.logoBtn}>
@@ -34,9 +34,8 @@ const navBar = ({ classes, props }) => {
                 <AddIcon />Share Somthing
               </Button>
             </Link>
-            <Button>
-              <LogoutMenu />
-            </Button>
+
+            <LogoutMenu />
           </div>
         </Toolbar>
       </AppBar>

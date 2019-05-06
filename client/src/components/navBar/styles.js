@@ -5,12 +5,14 @@ const styles = {
   },
   navBar: {
     display: 'flex',
-    flexGrow: 1,
+    flexWarp: 'no-warp',
     justifyContent: 'space-between',
     width: '100%'
   },
   login: {
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    display: 'flex',
+    alignItems: 'center'
   }
 };
 export default styles;

@@ -10,7 +10,7 @@ const ItemsGrid = ({ classes, items }) => {
       <Grid container alignContent="center" key={items.id}>
         <Grid item xs={12} key={items.id}>
           <Grid container>
-            {items.map(item => <ItemCards key={item.index} item={item} />)}
+            {items.map(item => <ItemCards key={item.id} item={item} />)}
           </Grid>
         </Grid>
       </Grid>
