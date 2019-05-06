@@ -65,7 +65,13 @@ const FormViewNoStyle = ({
   form
 }) => {
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <form
+      className={classes.form}
+      onSubmit={e => {
+        handleSubmit(e);
+        form.reset();
+      }}
+    >
       <FormSpy
         subscription={{ values: true }}
         component={({ values }) => {
