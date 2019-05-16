@@ -7,15 +7,11 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import LogoutMenu from '../LogoutMenu';
-
-// import MenuIcon from '@material-ui/icons/Menu';
-
 import logo from '../../images/boomtown.svg';
 
-const navBar = ({ classes, props }) => {
+const navBar = ({ classes }) => {
   return (
     <div className={classes.navBar}>
       <AppBar position="static">
@@ -23,7 +19,11 @@ const navBar = ({ classes, props }) => {
           <div className={classes.logoBtn}>
             <Link to="/items">
               <IconButton color="inherit" aria-label="Menu">
-                <img className={classes.logo} src={logo} />
+                <img
+                  className={classes.logo}
+                  alt={this.prop.index}
+                  src={logo}
+                />
               </IconButton>
             </Link>
           </div>
@@ -41,6 +41,10 @@ const navBar = ({ classes, props }) => {
       </AppBar>
     </div>
   );
+};
+
+navBar.propType = {
+  classes: PropTypes.any
 };
 
 export default withStyles(styles)(navBar);

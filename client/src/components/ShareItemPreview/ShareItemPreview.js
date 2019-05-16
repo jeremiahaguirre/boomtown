@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ItemCards from '../ItemCards';
 import { connect } from 'react-redux';
 import { ViewerContext } from '../../context/ViewerProvider';

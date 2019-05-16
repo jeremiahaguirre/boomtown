@@ -1,5 +1,4 @@
 //Actions
-import { ViewerContext } from '../../context/ViewerProvider';
 const UPDATE_ITEM = 'UPDATE_ITEM';
 const RESET_IMAGE = 'RESET_IMAGE';
 const RESET_ITEM = 'RESET_ITEM';

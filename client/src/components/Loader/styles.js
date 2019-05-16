@@ -5,3 +5,4 @@ const styles = {
     width: '80%'
   }
 };
+export default styles;

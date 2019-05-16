@@ -33,7 +33,6 @@ class AccountForm extends Component {
       <Form
         onSubmit={values => {
           const user = { variables: { user: values } };
-          this.state.error = null;
           this.state.formToggle
             ? loginMutation(user).catch(error => this.setState({ error }))
             : signupMutation(user).catch(error => this.setState({ error }));
@@ -164,11 +163,3 @@ export default compose(
 
   withStyles(styles)
 )(AccountForm);
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
-
-// graphql(LOGOUT_MUTATION, {
-//   options: {
-//     refetchQueries
-//   },
-//   name: 'logoutMutation'
-// }),

@@ -19,13 +19,7 @@ import {
 import { connect } from 'react-redux';
 import { ViewerContext } from '../../context/ViewerProvider';
 
-const InputFieldNoStyle = ({
-  classes,
-  value,
-  placeholder,
-  handleSelectFile,
-  onChange
-}) => {
+const InputFieldNoStyle = ({ classes, value, placeholder, onChange }) => {
   return (
     <div className="line">
       <TextField
@@ -168,6 +162,7 @@ const FormViewNoStyle = ({
         className={classes.btn}
         type="submit"
         disabled={pristine || invalid}
+        onSubmit={() => alert('Thank you for submitting')}
       >
         Share
       </Button>

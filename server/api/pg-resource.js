@@ -1,10 +1,4 @@
 function tagsQueryString(tags, itemid, result) {
-  /**
-   * Challenge:
-   * This function is more than a little complicated.
-   *  - Can you refactor it to be simpler / more readable?
-   *  - Is this
-   */
   const length = tags.length;
   return length === 0
     ? `${result};`

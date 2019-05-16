@@ -1,5 +1,4 @@
 const { ApolloError } = require('apollo-server-express');
-// const jwt = require('jsonwebtoken');
 const AuthMutationsFunction = require('./auth');
 const { DateScalar } = require('../custom-types');
 

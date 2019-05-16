@@ -13,4 +13,8 @@ function Loader(props) {
   );
 }
 
+Loader.propType = {
+  props: PropTypes.any
+};
+
 export default withStyles(styles)(Loader);

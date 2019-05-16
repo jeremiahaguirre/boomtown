@@ -2,7 +2,13 @@
 
 ### ScreenShot
 
-![alt text](/screenshot.png)
+![alt text](screenshots/screenshot.png)
+
+---
+
+## Description
+
+This project displays my abilities to run server side queries (graphQL) and connect to the client using apollo. The project uses Redux to update states and I use react compnents to make the user flow. Final form is also used for user login and validation. Learned how to use tokens to transfer information safely.
 
 ---
 
@@ -24,38 +30,6 @@ npm install
 
 ```bash
 npm run start:dev
-```
-
-### Test this:
-
-- Just linting:
-
-```bash
-npm run lint
-```
-
-- Run linting, and fix any errors:
-
-```bash
-npm run lint:fix
-```
-
-- Run Jest tests:
-
-```
-npm run jest
-```
-
-- Run Jest tests, and watch for changes:
-
-```bash
-npm run jest:watch
-```
-
-- Run all tests:
-
-```bash
-npm run test
 ```
 
 ### Technologies Used
@@ -92,26 +66,6 @@ npm start
 
 ```bash
 npm run build
-```
-
-### Tests
-
-- Just linting:
-
-```bash
-npm run lint
-```
-
-- Run linting, and fix any errors:
-
-```bash
-npm run lint:fix
-```
-
-- Run all tests:
-
-```bash
-npm run test
 ```
 
 ## Technologies Used
