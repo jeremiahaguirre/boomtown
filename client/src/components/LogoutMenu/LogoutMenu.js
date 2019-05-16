@@ -8,6 +8,7 @@ import { Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 const ITEM_HEIGHT = 48;
@@ -55,13 +56,13 @@ class LogoutMenu extends Component {
         >
           <Link to="/profile">
             <MenuItem key={'profile'} onClick={this.handleClose}>
-              <i class="fas fa-fingerprint" />Profile
+              Profile
             </MenuItem>
           </Link>
           <Mutation mutation={LOGOUT_MUTATION}>
             {(logOut, { data }) => (
               <MenuItem key={'logout'} onClick={logoutMutation}>
-                <i class="fas fa-power-off" />Logout
+                Logout
               </MenuItem>
             )}
           </Mutation>
@@ -70,6 +71,11 @@ class LogoutMenu extends Component {
     );
   }
 }
+
+LogoutMenu.propTypes = {
+  classes: PropTypes.object.isRequired,
+  logoutMutation: PropTypes.func
+};
 
 const refetchQueries = [
   {

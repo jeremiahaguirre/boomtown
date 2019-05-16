@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
@@ -58,6 +59,7 @@ const FormViewNoStyle = ({
   invalid,
   form
 }) => {
+  console.log(handleSubmit);
   return (
     <form
       className={classes.form}
@@ -168,6 +170,13 @@ const FormViewNoStyle = ({
       </Button>
     </form>
   );
+};
+
+FormViewNoStyle.propTypes = {
+  classes: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  tags: PropTypes.array,
+  dispatchUpdate: PropTypes.func
 };
 
 const FormView = withStyles(styles)(FormViewNoStyle);

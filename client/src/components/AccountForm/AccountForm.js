@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Form, Field } from 'react-final-form';
+import PropTypes from 'prop-types';
 import validate from './helpers/validation';
 import {
   LOGIN_MUTATION,
@@ -28,6 +29,7 @@ class AccountForm extends Component {
 
   render() {
     const { classes, loginMutation, signupMutation } = this.props;
+    console.log(loginMutation);
 
     return (
       <Form
@@ -129,10 +131,10 @@ class AccountForm extends Component {
             <Typography className={classes.errorMessage}>
               {(this.state.error &&
                 this.state.formToggle &&
-                this.state.error.graphQLErrors[0].message) ||
+                this.state.error.graphQLErrors.message) ||
                 (this.state.error &&
                   !this.state.formToggle &&
-                  this.state.error.graphQLErrors[0].message)}
+                  this.state.error.graphQLErrors.message)}
             </Typography>
           </form>
         )}
@@ -140,6 +142,12 @@ class AccountForm extends Component {
     );
   }
 }
+
+AccountForm.propType = {
+  classes: PropTypes.object.isRequired,
+  loginMutation: PropTypes.func,
+  signupMutation: PropTypes.func
+};
 
 const refetchQueries = [
   {

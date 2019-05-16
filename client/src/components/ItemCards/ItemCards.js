@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 const moment = require('moment');
 
 const ItemsCards = ({ classes, item, viewer }) => {
@@ -52,6 +53,11 @@ const ItemsCards = ({ classes, item, viewer }) => {
       </CardContent>
     </Card>
   );
+};
+
+ItemsCards.propTypes = {
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object
 };
 
 export default withStyles(styles)(ItemsCards);

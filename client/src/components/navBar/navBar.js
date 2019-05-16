@@ -21,7 +21,7 @@ const navBar = ({ classes }) => {
               <IconButton color="inherit" aria-label="Menu">
                 <img
                   className={classes.logo}
-                  alt={this.prop.index}
+                  alt={'boomtown logo'}
                   src={logo}
                 />
               </IconButton>
@@ -44,7 +44,7 @@ const navBar = ({ classes }) => {
 };
 
 navBar.propType = {
-  classes: PropTypes.any
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(navBar);

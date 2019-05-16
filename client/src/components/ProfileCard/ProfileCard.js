@@ -25,7 +25,9 @@ function ProfileCard({ classes, user, userItems }) {
   );
 }
 ProfileCard.propType = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  userItems: PropTypes.object
 };
 
 export default withStyles(styles)(ProfileCard);

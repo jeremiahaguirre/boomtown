@@ -14,7 +14,7 @@ function Loader(props) {
 }
 
 Loader.propType = {
-  props: PropTypes.any
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Loader);
