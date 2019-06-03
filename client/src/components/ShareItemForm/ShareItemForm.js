@@ -251,6 +251,7 @@ class ShareForm extends Component {
 
   render() {
     const { tags } = this.props;
+    console.log(tags);
     return (
       <div className={this.props.classes.share}>
         <ViewerContext.Consumer>
@@ -278,7 +279,6 @@ class ShareForm extends Component {
                       } catch (e) {
                         console.log(e);
                       }
-                      // this.props.history.push('./items');
                     }}
                     render={props => (
                       <FormView

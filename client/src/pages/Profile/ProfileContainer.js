@@ -9,20 +9,24 @@ import Loader from '../../components/Loader';
 
 class ProfileContainer extends Component {
   render() {
+    const { match } = this.props;
+    console.log(match);
     return (
       <div className={this.props.classes.main}>
         <ViewerContext.Consumer>
           {({ viewer, loading }) => {
             return (
-              <Query query={ALL_USER_ITEMS_QUERY} variables={{ id: viewer.id }}>
+              <Query
+                query={ALL_USER_ITEMS_QUERY}
+                variables={{ id: match.params.userid || viewer.id }}
+              >
                 {({ loading, error, data }) => {
-                  console.log(data);
                   if (loading) return <Loader />;
                   if (error) return `Error! ${error.message}`;
                   return (
                     <Profile
                       classes={this.props.classes}
-                      user={viewer}
+                      user={data.user}
                       userItems={data.user.items}
                     />
                   );

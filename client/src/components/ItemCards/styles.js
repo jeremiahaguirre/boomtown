@@ -1,6 +1,6 @@
 const styles = {
   cards: {
-    margin: 10,
+    margin: 15,
     display: 'block',
     width: '415px'
   },

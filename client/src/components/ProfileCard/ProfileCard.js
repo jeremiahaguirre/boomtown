@@ -8,7 +8,6 @@ import styles from './styles';
 import Gravatar from 'react-gravatar';
 
 function ProfileCard({ classes, user, userItems }) {
-  console.log(user);
   return (
     <div className={classes.main}>
       <Card className={classes.card}>

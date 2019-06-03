@@ -2,8 +2,7 @@ import React from 'react';
 import ProfileCard from '../../components/ProfileCard/';
 import ItemsGrid from '../../components/ItemsGrid';
 
-const Profile = ({ classes, user, userItems }) => {
-  console.log(userItems.length);
+const Profile = ({ user, userItems }) => {
   return (
     <div>
       <ProfileCard key={user.index} user={user} userItems={userItems} />

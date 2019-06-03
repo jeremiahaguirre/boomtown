@@ -4,6 +4,7 @@ import ItemCards from '../ItemCards';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const ItemsGrid = ({ classes, items }) => {
   return (
@@ -11,7 +12,11 @@ const ItemsGrid = ({ classes, items }) => {
       <Grid container alignContent="center" key={items.id}>
         <Grid item xs={12} key={items.id}>
           <Grid container>
-            {items.map(item => <ItemCards key={item.id} item={item} />)}
+            {items.map(item => (
+              <Link key={item.id} to={`/profile/${item.itemowner.id}`}>
+                <ItemCards item={item} />
+              </Link>
+            ))}
           </Grid>
         </Grid>
       </Grid>

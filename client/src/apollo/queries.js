@@ -114,3 +114,7 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+/**  {
+ *   options: { fetchPolicy: 'network-only' },
+ }*/

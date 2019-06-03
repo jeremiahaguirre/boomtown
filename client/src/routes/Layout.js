@@ -7,7 +7,7 @@ import Share from '../pages/Share';
 import NavBar from '../components/navBar';
 import { ViewerContext } from '../context/ViewerProvider';
 
-export default ({ classes, props }) => (
+export default () => (
   <ViewerContext.Consumer>
     {({ viewer, loading }) => {
       if (loading) return null;
@@ -24,7 +24,6 @@ export default ({ classes, props }) => (
             <NavBar />
             <Switch>
               <Route path="/items" component={Items} />
-              <Route path="/profile" component={Profile} />
               <Route path="/profile/:userid" component={Profile} />
               <Route path="/share" component={Share} />
               <Redirect from="/*" to="/items" />

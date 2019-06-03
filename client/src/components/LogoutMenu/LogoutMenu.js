@@ -10,6 +10,7 @@ import { graphql, compose } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import { ViewerContext } from '../../context/ViewerProvider';
 
 const ITEM_HEIGHT = 48;
 
@@ -54,11 +55,17 @@ class LogoutMenu extends Component {
             }
           }}
         >
-          <Link to="/profile">
-            <MenuItem key={'profile'} onClick={this.handleClose}>
-              Profile
-            </MenuItem>
-          </Link>
+          <ViewerContext.Consumer>
+            {({ viewer, loading }) => {
+              return (
+                <Link to={`/profile/${viewer.id}`}>
+                  <MenuItem key={'profile'} onClick={this.handleClose}>
+                    Profile
+                  </MenuItem>
+                </Link>
+              );
+            }}
+          </ViewerContext.Consumer>
           <Mutation mutation={LOGOUT_MUTATION}>
             {(logOut, { data }) => (
               <MenuItem key={'logout'} onClick={logoutMutation}>
