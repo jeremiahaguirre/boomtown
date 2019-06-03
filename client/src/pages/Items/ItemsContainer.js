@@ -13,7 +13,11 @@ class ItemsContainer extends Component {
       <ViewerContext.Consumer>
         {({ viewer, loading }) => {
           return (
-            <Query query={ALL_ITEMS_QUERY} variables={{ filter: viewer.id }}>
+            <Query
+              query={ALL_ITEMS_QUERY}
+              variables={{ filter: viewer.id }}
+              fetchPolicy="network-only"
+            >
               {({ loading, error, data }) => {
                 if (loading) return <Loader />;
                 if (error) return `Error! ${error.message}`;

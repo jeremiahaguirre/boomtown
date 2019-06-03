@@ -19,6 +19,7 @@ class ProfileContainer extends Component {
               <Query
                 query={ALL_USER_ITEMS_QUERY}
                 variables={{ id: match.params.userid || viewer.id }}
+                fetchPolicy="network-only"
               >
                 {({ loading, error, data }) => {
                   if (loading) return <Loader />;
