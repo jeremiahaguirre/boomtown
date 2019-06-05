@@ -57,7 +57,8 @@ const ItemsCards = ({ classes, item, viewer }) => {
 
 ItemsCards.propTypes = {
   classes: PropTypes.object.isRequired,
-  item: PropTypes.object
+  item: PropTypes.object,
+  viewer: PropTypes.object
 };
 
 export default withStyles(styles)(ItemsCards);

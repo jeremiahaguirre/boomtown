@@ -29,7 +29,6 @@ class AccountForm extends Component {
 
   render() {
     const { classes, loginMutation, signupMutation } = this.props;
-    console.log(loginMutation);
 
     return (
       <Form

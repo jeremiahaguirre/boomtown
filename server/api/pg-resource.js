@@ -122,7 +122,6 @@ module.exports = postgres => {
           try {
             client.query('BEGIN', async err => {
               const { title, description, tags } = item;
-              console.log('pg', tags);
               const itemQuery = {
                 text: `INSERT INTO items(title, description, itemowner) VALUES ($1, $2, $3) RETURNING *`,
                 values: [title, description, user]

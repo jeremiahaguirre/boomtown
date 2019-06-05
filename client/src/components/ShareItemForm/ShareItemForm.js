@@ -56,16 +56,19 @@ const FormViewNoStyle = ({
   fileSelected,
   fileInput,
   pristine,
+  handleTagClose,
+  responseMessage,
   invalid,
   form
 }) => {
-  console.log(handleSubmit);
   return (
     <form
       className={classes.form}
       onSubmit={e => {
         handleSubmit(e);
         form.reset();
+        handleTagClose();
+        responseMessage();
       }}
     >
       <FormSpy
@@ -202,6 +205,17 @@ class ShareForm extends Component {
       selectedTags: event.target.value
     });
   };
+
+  responseMessage = () => {
+    alert('Thank you for submitting');
+  };
+
+  handleTagClose = () => {
+    this.setState({
+      selectedTags: []
+    });
+  };
+
   handleSelectFile = event => {
     this.setState({
       fileSelected: this.fileInput.current.files[0]
@@ -251,7 +265,6 @@ class ShareForm extends Component {
 
   render() {
     const { tags } = this.props;
-    console.log(tags);
     return (
       <div className={this.props.classes.share}>
         <ViewerContext.Consumer>
@@ -285,6 +298,8 @@ class ShareForm extends Component {
                         {...props}
                         fileInput={this.fileInput}
                         tags={tags}
+                        responseMessage={this.responseMessage}
+                        handleTagClose={this.handleTagClose}
                         fileSelected={this.state.fileSelected}
                         resetFileInput={this.resetFileInput}
                         generateTagsText={this.generateTagsText}
@@ -305,6 +320,11 @@ class ShareForm extends Component {
     );
   }
 }
+
+ShareForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  tags: PropTypes.array
+};
 
 const mapDispatchToProps = dispatch => ({
   updateItem(item) {

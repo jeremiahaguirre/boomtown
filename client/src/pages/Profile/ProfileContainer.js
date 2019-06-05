@@ -6,11 +6,11 @@ import { ViewerContext } from '../../context/ViewerProvider';
 import { Query } from 'react-apollo';
 import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
 import Loader from '../../components/Loader';
+import PropTypes from 'prop-types';
 
 class ProfileContainer extends Component {
   render() {
     const { match } = this.props;
-    console.log(match);
     return (
       <div className={this.props.classes.main}>
         <ViewerContext.Consumer>
@@ -40,5 +40,9 @@ class ProfileContainer extends Component {
     );
   }
 }
+
+ProfileContainer.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(ProfileContainer);

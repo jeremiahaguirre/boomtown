@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from './styles';
 
-function Loader(props) {
+const Loader = props => {
   const { classes } = props;
   return (
     <div>
       <CircularProgress className={classes.progress} />
     </div>
   );
-}
+};
 
 Loader.propType = {
   classes: PropTypes.object.isRequired

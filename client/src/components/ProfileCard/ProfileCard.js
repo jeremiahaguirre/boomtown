@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 import Gravatar from 'react-gravatar';
 
-function ProfileCard({ classes, user, userItems }) {
+const ProfileCard = ({ classes, user, userItems }) => {
   return (
     <div className={classes.main}>
       <Card className={classes.card}>
@@ -22,7 +22,7 @@ function ProfileCard({ classes, user, userItems }) {
       </Card>
     </div>
   );
-}
+};
 ProfileCard.propType = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object,
