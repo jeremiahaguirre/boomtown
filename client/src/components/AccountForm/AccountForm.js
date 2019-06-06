@@ -130,10 +130,10 @@ class AccountForm extends Component {
             <Typography className={classes.errorMessage}>
               {(this.state.error &&
                 this.state.formToggle &&
-                this.state.error.graphQLErrors.message) ||
+                this.state.error.graphQLErrors[0].message) ||
                 (this.state.error &&
                   !this.state.formToggle &&
-                  this.state.error.graphQLErrors.message)}
+                  this.state.error.graphQLErrors[0].message)}
             </Typography>
           </form>
         )}
